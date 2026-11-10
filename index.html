@@ -90,6 +90,27 @@ p{margin:0 0 12px}
 .tl li:last-child{border-bottom:0}
 .tl .when{color:var(--muted);font-size:.88rem;font-variant-numeric:tabular-nums;padding-top:1px}
 
+/* read more */
+:root{interpolate-size:allow-keywords}
+.more{margin-top:8px}
+.more summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:.86rem;font-weight:500;color:var(--accent);padding:3px 0;border-radius:4px;user-select:none}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:"";width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s ease}
+.more[open] summary::after{transform:translateY(1px) rotate(-135deg)}
+.more summary:hover .o,.more summary:hover .c{text-decoration:underline;text-underline-offset:3px}
+.more summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.more .c,.more[open] .o{display:none}
+.more[open] .c{display:inline}
+.more::details-content{height:0;overflow:clip;transition:height .25s ease,content-visibility .25s allow-discrete}
+.more[open]::details-content{height:auto}
+.more .body{margin-top:10px;padding:12px 14px;background:var(--tag);border-radius:8px;font-size:.92rem;line-height:1.55}
+.more .body p{margin:0 0 8px}
+.more .body p:last-child,.more .body ul:last-child{margin-bottom:0}
+.more .body ul{margin:0 0 8px;padding-left:1.1em}
+.more .body li{margin:3px 0}
+@media (prefers-reduced-motion:reduce){.more::details-content,.more summary::after{transition:none}}
+@media print{.more summary{display:none}}
+
 footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);font-size:.88rem}
 
 @media (max-width:700px){
@@ -178,12 +199,24 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
         <span class="fig"><b>13.2%</b> fewer expert calls</span>
       </div>
       <p class="muted small" style="margin:10px 0 0">Calibration and test splits are random, not spatial: the recall floor is validated empirically and has no guarantee outside the calibration distribution.</p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><ul>
+<li><b>Data.</b> 23,804 georeferenced smartphone images from smallholder maize farms in Kenya.</li>
+<li><b>Design.</b> Stage one is a light network that sees every image. Images it cannot clear with confidence go to a stronger network. The decision thresholds are set on a calibration set so that recall on the damaged class stays above a chosen floor.</li>
+<li><b>Results.</b> Damaged-class recall of about 0.97 on held-out data, with 13.2% fewer calls to a human expert.</li>
+<li><b>Not shown yet.</b> A spatial split, where whole areas are held out, would test the floor under the kind of shift an insurer meets in the field. That question is where my review below starts.</li>
+</ul>
+<p class="muted">Supervised by Dr Songbian Zimé. <a href="https://arxiv.org/abs/2607.25468">arXiv:2607.25468</a> · <a href="https://ssrn.com/abstract=7237146">SSRN</a></p></div></details>
     </article>
 
     <article class="card">
       <h3>Recall guarantees under distribution shift <span class="tag">in progress</span></h3>
       <div class="meta">Literature review, Oct 2026</div>
       <p>A review that treats the recall floor as a constraint in probability and maps what existing results can and cannot guarantee for cascaded classifiers. The hardest gap it identifies is shift with little information about the target distribution.</p>
+      <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>The review reads the recall floor as a constraint that must hold with high probability, then sorts the open questions into gaps. Two of them:</p>
+<ul>
+<li><b>G2, composite cascade risk.</b> How the errors of the stages combine. It does not arise in CascadeCropNet, because the expert stage there never rejects a case.</li>
+<li><b>G3, shift with little target information.</b> The hardest gap, and the one I want to work on during a PhD.</li>
+</ul></div></details>
     </article>
 
     <div class="compact">
@@ -191,21 +224,30 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
         <h3>MalariaCascade <span class="tag">preprint</span></h3>
         <div class="meta">With Michel Emel · 2026</div>
         <p class="small">The same cascade design for malaria cell images (NIH dataset, 27,558 cells): about 96% recall on clean images, while a single network falls to 32.8% under heavy sensor noise. <a href="https://arxiv.org/abs/2609.33005">arXiv:2609.33005</a></p>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>A second application, to test whether the CascadeCropNet design carries over from field photos to medical images.</p>
+<p>The data is the public NIH malaria dataset of thin blood smear cell images, half parasitized and half uninfected. A journal manuscript is in preparation.</p></div></details>
       </article>
       <article class="card">
         <h3>Maize yields and climate</h3>
         <div class="meta">With Dr Jean-Claude Ahouangbenon · since Jul 2026</div>
         <p class="small">Forecasting maize yields from a commune-level panel for Benin, Burkina Faso and Togo (155 communes, 1984 to 2023). Rainfall-only models did not beat simple baselines; vegetation data comes next.</p>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>The panel holds about 217,000 records. The project is led by Dr Ahouangbenon.</p></div></details>
       </article>
       <article class="card">
         <h3>Aguda digital history platform</h3>
         <div class="meta">With Prof. Leonard Wantchekon and Dr Guilherme Lambais · since Sep 2026</div>
         <p class="small">Audited six archival datasets on Africans returning from Bahia to West Africa, reproduced the record linkage, and documented 58 data and code issues with fixes.</p>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><ul>
+<li>The datasets include 3,399 passport records, 762 baptisms from Ouidah and a baptism network of 1,254 names.</li>
+<li>I wrote a Python checker that recounts all 426 figures in the project documents from the source files.</li>
+<li>I reproduced the team's record linkage with the same result: 100 name pairs, 139 returnees. Each of the 58 issues is documented with its location and a proposed fix.</li>
+</ul></div></details>
       </article>
       <article class="card">
         <h3>WIIRU Learn</h3>
         <div class="meta">Supervised by Dr Yaé Ulrich Gaba · working paper</div>
         <p class="small">Adaptive revision for technical-track baccalaureate students in Benin, using Bayesian Knowledge Tracing to reduce the risk of an eliminating zero in mathematics. Not deployed.</p>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Written for Terminale students on the technical track. Bayesian Knowledge Tracing estimates, for each skill, the probability that a student has mastered it, updated after every answer. Status: working paper.</p></div></details>
       </article>
     </div>
   </div>
@@ -254,9 +296,15 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
   <div class="wrap">
     <h2>Other experience</h2>
     <ul class="tl">
-      <li><span class="when">Apr 2026 – now</span><span><b>External collaborator, pretext-translate</b>, IDEMS International. Found and fixed two high-severity extraction bugs, classified all 315 PreTeXt schema elements, wrote a French onboarding guide.</span></li>
+      <li><span class="when">Apr 2026 – now</span><div><b>External collaborator, pretext-translate</b>, IDEMS International. Open-source pipeline that translates PreTeXt textbooks.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><ul>
+<li>Audited two corpora and wrote the audit report.</li>
+<li>Found and fixed two high-severity extraction bugs.</li>
+<li>Classified all 315 PreTeXt schema elements and wrote a French onboarding guide.</li>
+</ul></div></details></div></li>
       <li><span class="when">Aug 2026</span><span><b>Applied Mathematics Foundations of AI Summer Academy</b>, University of Michigan (MCAIM) and JKUAT, Nairobi.</span></li>
-      <li><span class="when">Mar – Apr 2026</span><span><b>AIMS RIC Doctoral Training School</b>, Foundational Methods in Data Science, Kigali. Excellence Scholarship; Best Participant Award.</span></li>
+      <li><span class="when">Mar – Apr 2026</span><div><b>AIMS RIC Doctoral Training School</b>, Foundational Methods in Data Science, Kigali. Excellence Scholarship; Best Participant Award.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>The Best Participant Award was chosen by the other participants. On 20 March 2026 I presented my research on safety-first crop damage assessment.</p></div></details></div></li>
       <li><span class="when">2026</span><span><b>Shortlisted</b>, AI, Uncertainty &amp; Simulation Workshop (Imperial College London, Mauritius).</span></li>
       <li><span class="when">2023</span><span><b>QuantEcon Africa</b>, computational economics with Python, African School of Economics.</span></li>
     </ul>
@@ -267,9 +315,11 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
   <div class="wrap">
     <h2>Education</h2>
     <ul class="tl">
-      <li><span class="when">2022 – 2025</span><span><b>MSc Mathematics, Economics and Statistics</b>, African School of Economics (taught in English). GPA 3.61/4.3. Thesis: digital financial services and poverty reduction in Benin (multivariate probit on Global Findex 2021, interviews with 34 women). Supervisor: Segnon Aguey.</span></li>
-      <li><span class="when">2018 – Jan 2022</span><span><b>Master in Pure Mathematics and Applications</b>, Université d'Abomey-Calavi. Second Class Honours (Upper Division). Thesis (15.5/20): neural network regression in high dimension, a study of Bauer and Kohler (2019) with original simulations.</span></li>
-      <li><span class="when">2014 – 2018</span><span><b>Licence in Mathematics</b>, Université d'Abomey-Calavi. Benin Government Scholarship.</span></li>
+      <li><span class="when">2022 – 2025</span><div><b>MSc Mathematics, Economics and Statistics</b>, African School of Economics (taught in English). GPA 3.61/4.3.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Thesis, defended 25 September 2025: digital financial services and poverty reduction in Benin. A multivariate probit on Global Findex 2021 data, with interviews of 34 women in four communes. Supervisor: Segnon Aguey, PhD.</p></div></details></div></li>
+      <li><span class="when">2018 – Jan 2022</span><div><b>Master in Pure Mathematics and Applications</b>, Université d'Abomey-Calavi. Second Class Honours (Upper Division).
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Thesis, defended 22 January 2022, graded 15.5/20 (Very good): neural network regression in high dimension. An expository study of Bauer and Kohler (2019), with original numerical simulations.</p></div></details></div></li>
+      <li><span class="when">2014 – 2018</span><span><b>Licence in Mathematics</b>, Université d'Abomey-Calavi. Benin Government Scholarship (2016 – 2018).</span></li>
     </ul>
     <p class="muted small" style="margin-top:12px">Skills: Python, PyTorch, R, SQL, Stata, LaTeX, Git. Languages: French and Fon (native), English (professional).</p>
   </div>
