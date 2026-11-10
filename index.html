@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>José Thiéry M. Hagbe</title>
+<meta name="description" content="José Thiéry M. Hagbe: recall guarantees for safety-constrained prediction under distribution shift, with applications to agriculture and health in West Africa.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --ink:#1d1d1f; --muted:#5b5b63; --line:#e6e3dc;
+  --accent:#1f4e79; --accent-soft:#e8eef5; --tag:#f1efe9;
+  --serif:"Source Serif 4",Georgia,serif; --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#121316; --surface:#1a1c20; --ink:#ecebe8; --muted:#a3a3ab; --line:#2b2e34;
+         --accent:#8fb8e3; --accent-soft:#1d2a38; --tag:#24262b; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+a:hover{border-bottom-color:currentColor}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+nav .brand{font-family:var(--serif);font-weight:600;font-size:1.05rem;color:var(--ink);border:0;white-space:nowrap}
+nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
+nav ul::-webkit-scrollbar{display:none}
+nav ul a{color:var(--muted);font-size:.9rem;border:0;white-space:nowrap}
+nav ul a:hover{color:var(--ink)}
+
+/* hero */
+header.hero{padding:56px 0 40px}
+.hero .wrap{display:grid;grid-template-columns:168px 1fr;gap:36px;align-items:center}
+.avatar{width:168px;height:168px;border-radius:50%;object-fit:cover;background:var(--accent-soft);display:grid;place-items:center;font-family:var(--serif);font-size:3rem;color:var(--accent);border:1px solid var(--line)}
+h1{font-family:var(--serif);font-weight:600;font-size:2.3rem;line-height:1.15;margin:0 0 6px;letter-spacing:-.01em}
+.role{color:var(--muted);margin:0 0 14px}
+.lede{font-family:var(--serif);font-size:1.15rem;line-height:1.55;margin:0 0 18px}
+.buttons{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid var(--line);border-radius:999px;font-size:.88rem;color:var(--ink);background:var(--surface)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn.primary:hover{opacity:.9;color:var(--bg)}
+.btn svg{width:15px;height:15px;fill:currentColor}
+
+/* sections */
+section{padding:34px 0;border-top:1px solid var(--line)}
+h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;margin:0 0 18px}
+h3{font-size:1.02rem;font-weight:600;margin:0 0 4px}
+p{margin:0 0 12px}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+
+.question{background:var(--accent-soft);border-left:3px solid var(--accent);padding:16px 18px;border-radius:0 8px 8px 0;font-family:var(--serif);font-size:1.08rem;margin:6px 0 4px}
+
+/* news */
+.news{list-style:none;margin:0;padding:0}
+.news li{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:7px 0}
+.news time{color:var(--muted);font-size:.88rem;font-variant-numeric:tabular-nums;padding-top:1px}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+.card .meta{color:var(--muted);font-size:.88rem;margin-bottom:10px}
+.figs{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px}
+.fig{background:var(--tag);border-radius:8px;padding:6px 10px;font-size:.85rem}
+.fig b{font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:.75rem;font-weight:500;letter-spacing:.02em;padding:2px 8px;border-radius:999px;background:var(--tag);color:var(--muted);margin-left:6px;vertical-align:2px}
+.tag.live{background:var(--accent-soft);color:var(--accent)}
+.compact{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.compact .card{margin:0}
+
+/* publications */
+.pubs{list-style:none;margin:0;padding:0;counter-reset:p}
+.pubs li{padding:12px 0;border-bottom:1px dashed var(--line)}
+.pubs li:last-child{border-bottom:0}
+.pubs .title{font-family:var(--serif);font-size:1.05rem;font-weight:600}
+.pubs .links{font-size:.88rem;margin-top:3px}
+.pubs .links a{margin-right:12px}
+.me{text-decoration:underline;text-underline-offset:2px}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
+.tl li:last-child{border-bottom:0}
+.tl .when{color:var(--muted);font-size:.88rem;font-variant-numeric:tabular-nums;padding-top:1px}
+
+footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);font-size:.88rem}
+
+@media (max-width:700px){
+  .hero .wrap{grid-template-columns:1fr;gap:20px}
+  .avatar{width:112px;height:112px;font-size:2rem}
+  h1{font-size:1.85rem}
+  .compact{grid-template-columns:1fr}
+  .tl li,.news li{grid-template-columns:1fr;gap:2px}
+  nav ul{gap:14px}
+  nav .brand{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top">J. T. M. Hagbe</a>
+    <ul>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <img class="avatar" src="photo.jpg" alt="Portrait of José Thiéry M. Hagbe" width="168" height="168"
+         onerror="this.outerHTML='<div class=&quot;avatar&quot; role=&quot;img&quot; aria-label=&quot;JTH initials&quot;>JH</div>'">
+    <div>
+      <h1>José Thiéry M. Hagbe</h1>
+      <p class="role">Mathematics and machine learning · African School of Economics, Abomey-Calavi, Benin</p>
+      <p class="lede">I study prediction systems that must not miss the cases that matter, and what can be guaranteed about them when the data distribution shifts. My applications are crop damage assessment and malaria diagnosis in West Africa.</p>
+      <div class="buttons">
+        <!-- CV button: restore when cv.pdf (public version, no phone or referee emails) is added
+        <a class="btn primary" href="cv.pdf">CV (PDF)</a> -->
+        <a class="btn primary" href="mailto:jhagbe@africanschoolofeconomics.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7zm16 10V9.8l-8 5-8-5V17z"/></svg>Email</a>
+        <a class="btn" href="https://arxiv.org/abs/2607.25468">arXiv</a>
+        <a class="btn" href="https://github.com/josehagbe3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+        <a class="btn" href="https://orcid.org/0000-0002-4189-5221">ORCID</a>
+        <a class="btn" href="https://www.linkedin.com/in/josehagbe3/">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <p>A crop insurer that misses a damaged field fails a farmer; a diagnostic tool that misses an infected cell fails a patient. In both cases the costly error is the one nobody flags. My work builds cascaded classifiers that hold a recall floor on the critical class: a cheap first model handles the easy cases, and anything uncertain goes to a stronger model or an expert.</p>
+    <p>The floor holds on data like the calibration set. It carries no guarantee once field conditions change, and that is the open problem I want to work on.</p>
+    <div class="question">When a prediction system is calibrated on one distribution, what can still be guaranteed about its miss rate on another?</div>
+    <p class="muted small" style="margin-top:12px">I trained first in pure mathematics, then in mathematics, economics and statistics. I am applying to PhD programs for 2027.</p>
+  </div>
+</section>
+
+<section id="news">
+  <div class="wrap">
+    <h2>News</h2>
+    <ul class="news">
+      <li><time datetime="2026-09">Sep 2026</time><span>MalariaCascade preprint posted: <a href="https://arxiv.org/abs/2609.33005">arXiv:2609.33005</a>.</span></li>
+      <li><time datetime="2026-08">Aug 2026</time><span>Selected for the Applied Mathematics Foundations of AI Summer Academy (University of Michigan MCAIM, JKUAT, Nairobi), fully funded.</span></li>
+      <li><time datetime="2026-07">Jul 2026</time><span>CascadeCropNet preprint posted: <a href="https://arxiv.org/abs/2607.25468">arXiv:2607.25468</a>, under review at <em>Computers and Electronics in Agriculture</em>.</span></li>
+      <li><time datetime="2026-04">Apr 2026</time><span>Best Participant Award (peer-selected), AIMS RIC Doctoral Training School, Kigali.</span></li>
+      <li><time datetime="2026-03">Mar 2026</time><span>Research presentation on safety-first crop damage assessment, AIMS RIC, Kigali.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <h2>Research</h2>
+
+    <article class="card">
+      <h3>CascadeCropNet: crop damage assessment with a recall floor <span class="tag live">under review</span></h3>
+      <div class="meta">With G. K. Gounou and S. K. Zimé · African School of Economics · since Oct 2023</div>
+      <p>A two-stage cascade for picture-based crop insurance. A light model screens smartphone images of maize fields; images it cannot clear go to a stronger model, with thresholds calibrated so that damaged fields are rarely missed.</p>
+      <div class="figs">
+        <span class="fig"><b>23,804</b> field images, Kenya</span>
+        <span class="fig">damaged-class recall <b>about 0.97</b> on held-out data</span>
+        <span class="fig"><b>13.2%</b> fewer expert calls</span>
+      </div>
+      <p class="muted small" style="margin:10px 0 0">Calibration and test splits are random, not spatial: the recall floor is validated empirically and has no guarantee outside the calibration distribution.</p>
+    </article>
+
+    <article class="card">
+      <h3>Recall guarantees under distribution shift <span class="tag">in progress</span></h3>
+      <div class="meta">Literature review, Oct 2026</div>
+      <p>A review that treats the recall floor as a constraint in probability and maps what existing results can and cannot guarantee for cascaded classifiers. The hardest gap it identifies is shift with little information about the target distribution.</p>
+    </article>
+
+    <div class="compact">
+      <article class="card">
+        <h3>MalariaCascade <span class="tag">preprint</span></h3>
+        <div class="meta">With Michel Emel · 2026</div>
+        <p class="small">The same cascade design for malaria cell images (NIH dataset, 27,558 cells): about 96% recall on clean images, while a single network falls to 32.8% under heavy sensor noise. <a href="https://arxiv.org/abs/2609.33005">arXiv:2609.33005</a></p>
+      </article>
+      <article class="card">
+        <h3>Maize yields and climate</h3>
+        <div class="meta">With Dr Jean-Claude Ahouangbenon · since Jul 2026</div>
+        <p class="small">Forecasting maize yields from a commune-level panel for Benin, Burkina Faso and Togo (155 communes, 1984 to 2023). Rainfall-only models did not beat simple baselines; vegetation data comes next.</p>
+      </article>
+      <article class="card">
+        <h3>Aguda digital history platform</h3>
+        <div class="meta">With Prof. Leonard Wantchekon and Dr Guilherme Lambais · since Sep 2026</div>
+        <p class="small">Audited six archival datasets on Africans returning from Bahia to West Africa, reproduced the record linkage, and documented 58 data and code issues with fixes.</p>
+      </article>
+      <article class="card">
+        <h3>WIIRU Learn</h3>
+        <div class="meta">Supervised by Dr Yaé Ulrich Gaba · working paper</div>
+        <p class="small">Adaptive revision for technical-track baccalaureate students in Benin, using Bayesian Knowledge Tracing to reduce the risk of an eliminating zero in mathematics. Not deployed.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <h2>Publications and preprints</h2>
+    <ol class="pubs">
+      <li>
+        <div class="title">Safety-Aware Cascaded Inference for Crop Damage Assessment with Controlled Error Trade-offs</div>
+        <div><span class="me">J. T. M. Hagbe</span>, G. K. Gounou, S. K. Zimé · 2026 · Under review, <em>Computers and Electronics in Agriculture</em></div>
+        <div class="links"><a href="https://arxiv.org/abs/2607.25468">arXiv:2607.25468</a><a href="https://ssrn.com/abstract=7237146">SSRN</a></div>
+      </li>
+      <li>
+        <div class="title">Safety-Constrained Cascade Inference for Robust Malaria Cell Classification Under Field Corruptions</div>
+        <div><span class="me">J. T. M. Hagbe</span>, M. Emel · 2026 · Preprint</div>
+        <div class="links"><a href="https://arxiv.org/abs/2609.33005">arXiv:2609.33005</a></div>
+      </li>
+      <li>
+        <div class="title">Recall guarantees for cascaded classifiers under distribution shift: a positioning review</div>
+        <div><span class="me">J. T. M. Hagbe</span> · Manuscript, October 2026</div>
+      </li>
+      <li>
+        <div class="title">Mathématique au Lycée: Classe de 2de STI and Classe Terminales STI (Les Spécialités)</div>
+        <div>M. Lokpoe, <span class="me">J. T. Hagbe</span>, E. Adedemi, A. Haman, A. Téko · 2024 · Collection Les Palmiers, Cotonou · Textbooks authorized nationally in Benin (Decree No 053/MESTFP)</div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="teaching">
+  <div class="wrap">
+    <h2>Teaching</h2>
+    <ul class="tl">
+      <li><span class="when">Oct 2025 – now</span><span><b>Lecturer (vacataire), Algebra and Machine Learning</b>, ESCAE-Benin. Tutorial instructor for the same courses, 2023–2025.</span></li>
+      <li><span class="when">2023 – 2025</span><span><b>Teaching Assistant, Econometrics and Linear Algebra</b>, MSc Mathematics, Economics and Statistics, African School of Economics.</span></li>
+      <li><span class="when">Current</span><span><b>Mathematics teacher, Terminale classes</b>, Complexe Scolaire Sainte Bakhita.</span></li>
+      <li><span class="when">Oct 2019 – Dec 2024</span><span><b>Mathematics teacher and team coordinator</b>, Complexe Scolaire Pierre Joseph de Clorivière, Abomey-Calavi.</span></li>
+      <li><span class="when">2019 – now</span><span><b>Member, national baccalaureate mathematics grading committee</b>, Republic of Benin.</span></li>
+      <li><span class="when">Nov 2025</span><span><b>Mentor, time series forecasting in R</b>, AFRICAST workshop, Cardiff University.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2>Other experience</h2>
+    <ul class="tl">
+      <li><span class="when">Apr 2026 – now</span><span><b>External collaborator, pretext-translate</b>, IDEMS International. Found and fixed two high-severity extraction bugs, classified all 315 PreTeXt schema elements, wrote a French onboarding guide.</span></li>
+      <li><span class="when">Aug 2026</span><span><b>Applied Mathematics Foundations of AI Summer Academy</b>, University of Michigan (MCAIM) and JKUAT, Nairobi.</span></li>
+      <li><span class="when">Mar – Apr 2026</span><span><b>AIMS RIC Doctoral Training School</b>, Foundational Methods in Data Science, Kigali. Excellence Scholarship; Best Participant Award.</span></li>
+      <li><span class="when">2026</span><span><b>Shortlisted</b>, AI, Uncertainty &amp; Simulation Workshop (Imperial College London, Mauritius).</span></li>
+      <li><span class="when">2023</span><span><b>QuantEcon Africa</b>, computational economics with Python, African School of Economics.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <h2>Education</h2>
+    <ul class="tl">
+      <li><span class="when">2022 – 2025</span><span><b>MSc Mathematics, Economics and Statistics</b>, African School of Economics (taught in English). GPA 3.61/4.3. Thesis: digital financial services and poverty reduction in Benin (multivariate probit on Global Findex 2021, interviews with 34 women). Supervisor: Segnon Aguey.</span></li>
+      <li><span class="when">2018 – Jan 2022</span><span><b>Master in Pure Mathematics and Applications</b>, Université d'Abomey-Calavi. Second Class Honours (Upper Division). Thesis (15.5/20): neural network regression in high dimension, a study of Bauer and Kohler (2019) with original simulations.</span></li>
+      <li><span class="when">2014 – 2018</span><span><b>Licence in Mathematics</b>, Université d'Abomey-Calavi. Benin Government Scholarship.</span></li>
+    </ul>
+    <p class="muted small" style="margin-top:12px">Skills: Python, PyTorch, R, SQL, Stata, LaTeX, Git. Languages: French and Fon (native), English (professional).</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:jhagbe@africanschoolofeconomics.com">jhagbe@africanschoolofeconomics.com</a><br>
+       African School of Economics, Abomey-Calavi, Benin</p>
+    <p class="small"><a href="https://github.com/josehagbe3">GitHub</a> · <a href="https://orcid.org/0000-0002-4189-5221">ORCID 0000-0002-4189-5221</a> · <a href="https://www.linkedin.com/in/josehagbe3/">LinkedIn</a></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 José Thiéry M. Hagbe · Last updated November 2026</div>
+</footer>
+</body>
+</html>
