@@ -86,8 +86,8 @@ p{margin:0 0 12px}
 
 /* timeline */
 .tl{list-style:none;margin:0;padding:0}
-.tl li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
-.tl li:last-child{border-bottom:0}
+.tl>li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
+.tl>li:last-child{border-bottom:0}
 .tl .when{color:var(--muted);font-size:.88rem;font-variant-numeric:tabular-nums;padding-top:1px}
 
 /* training */
@@ -129,7 +129,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
   .avatar{width:112px;height:112px;font-size:2rem}
   h1{font-size:1.85rem}
   .compact{grid-template-columns:1fr}
-  .tl li,.news li{grid-template-columns:1fr;gap:2px}
+  .tl>li,.news li{grid-template-columns:1fr;gap:2px}
   nav ul{gap:14px}
   nav .brand{display:none}
 }
@@ -180,6 +180,9 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
     <p>The floor holds on data like the calibration set. It carries no guarantee once field conditions change, and that is the open problem I want to work on.</p>
     <div class="question">When a prediction system is calibrated on one distribution, what can still be guaranteed about its miss rate on another?</div>
     <p class="muted small" style="margin-top:12px">I trained first in pure mathematics, then in mathematics, economics and statistics. I am applying to PhD programs for 2027.</p>
+    <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>The tools I want to build on are selective prediction, cascaded classifiers and chance-constrained learning. More broadly, I am interested in models that can abstain, defer or adapt under uncertainty, and in how these mechanisms interact with the real decision systems they feed.</p>
+<p>The same gap appears in education. In Benin's baccalaureate, a single zero in mathematics can eliminate a candidate whatever the overall result, so a missed weak student costs far more than a false alarm.</p>
+<p>I am looking for PhD training in applied mathematics, machine learning or economics, to work on the theory of decision-aware learning under asymmetric risk.</p></div></details>
   </div>
 </section>
 
@@ -211,12 +214,12 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
       </div>
       <p class="muted small" style="margin:10px 0 0">Calibration and test splits are random, not spatial: the recall floor is validated empirically and has no guarantee outside the calibration distribution.</p>
       <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><ul>
-<li><b>Data.</b> 23,804 georeferenced smartphone images from smallholder maize farms in Kenya.</li>
-<li><b>Design.</b> Stage one is a light network that sees every image. Images it cannot clear with confidence go to a stronger network. The decision thresholds are set on a calibration set so that recall on the damaged class stays above a chosen floor.</li>
-<li><b>Results.</b> Damaged-class recall of about 0.97 on held-out data, with 13.2% fewer calls to a human expert.</li>
+<li><b>Data.</b> The Eyes on the Ground dataset: 23,804 georeferenced smartphone images from smallholder maize farms in Kenya.</li>
+<li><b>Design.</b> Two stages, a Sentinel and an Expert. The light Sentinel sees every image; images it cannot clear with confidence go to the stronger Expert model. The Sentinel is trained under a hard recall constraint (damaged-class recall at least 0.95), enforced at checkpoint selection by threshold calibration. This is a heuristic, which raises the question of whether a chance-constrained formulation could give stronger guarantees.</li>
+<li><b>Results.</b> Damaged-class recall of about 0.97 on held-out data, with 13.2% fewer images sent to the Expert model. Under field and sensor corruption the Expert's metrics stay stable, while a flat single-stage baseline degrades by 17 to 35%.</li>
 <li><b>Not shown yet.</b> A spatial split, where whole areas are held out, would test the floor under the kind of shift an insurer meets in the field. That question is where my review below starts.</li>
 </ul>
-<p class="muted">Supervised by Dr Songbian Zimé. <a href="https://arxiv.org/abs/2607.25468">arXiv:2607.25468</a> · <a href="https://ssrn.com/abstract=7237146">SSRN</a></p></div></details>
+<p class="muted">Submitted April 2026. Supervised by Dr Songbian Zimé. <a href="https://arxiv.org/abs/2607.25468">arXiv:2607.25468</a> · <a href="https://ssrn.com/abstract=7237146">SSRN</a></p></div></details>
     </article>
 
     <article class="card">
@@ -233,16 +236,16 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
     <div class="compact">
       <article class="card">
         <h3>MalariaCascade <span class="tag">preprint</span></h3>
-        <div class="meta">With Michel Emel · 2026</div>
+        <div class="meta">With Michel Emel (AIMS Cameroon) · 2026</div>
         <p class="small">The same cascade design for malaria cell images (NIH dataset, 27,558 cells): about 96% recall on clean images, while a single network falls to 32.8% under heavy sensor noise. <a href="https://arxiv.org/abs/2609.33005">arXiv:2609.33005</a></p>
         <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>A second application, to test whether the CascadeCropNet design carries over from field photos to medical images.</p>
-<p>The data is the public NIH malaria dataset of thin blood smear cell images, half parasitized and half uninfected. A journal manuscript is in preparation.</p></div></details>
+<p>The data is the public NIH malaria dataset of thin blood smear cell images, half parasitized and half uninfected. Under severe sensor noise the cascade loses 2.4 points of parasitized-cell recall, while a single network falls to 0.33. A journal manuscript is in preparation.</p></div></details>
       </article>
       <article class="card">
         <h3>Maize yields and climate</h3>
         <div class="meta">With Dr Jean-Claude Ahouangbenon · since Jul 2026</div>
         <p class="small">Forecasting maize yields from a commune-level panel for Benin, Burkina Faso and Togo (155 communes, 1984 to 2023). Rainfall-only models did not beat simple baselines; vegetation data comes next.</p>
-        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>The panel holds about 217,000 records. The project is led by Dr Ahouangbenon.</p></div></details>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>The panel holds about 217,000 records and is combined with satellite rainfall estimates (CHIRPS). Models are benchmarked against climatological baselines with rolling-origin cross-validation. So far, naive climatological forecasts remain hard to beat in these low-data smallholder settings. The project is led by Dr Ahouangbenon.</p></div></details>
       </article>
       <article class="card">
         <h3>Aguda digital history platform</h3>
@@ -258,7 +261,8 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
         <h3>WIIRU Learn</h3>
         <div class="meta">Supervised by Dr Yaé Ulrich Gaba · working paper</div>
         <p class="small">Adaptive revision for technical-track baccalaureate students in Benin, using Bayesian Knowledge Tracing to reduce the risk of an eliminating zero in mathematics. Not deployed.</p>
-        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Written for Terminale students on the technical track. Bayesian Knowledge Tracing estimates, for each skill, the probability that a student has mastered it, updated after every answer. Status: working paper.</p></div></details>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Part of the Technipreneur Programme. Written for Terminale students on the technical and industrial tracks (F, E, EA, BTP, IMI, OG, DPB and others), where zero scores in mathematics are most frequent.</p>
+<p>Bayesian and Deep Knowledge Tracing estimate, skill by skill, what a student has mastered, updated after every answer. A retrieval-augmented generation pipeline produces practice questions grounded in the national curriculum. Revision is framed as a constrained sequential decision problem: keep the risk of an eliminating zero low. Status: working paper, not deployed.</p></div></details>
       </article>
     </div>
   </div>
@@ -307,7 +311,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
       <h3>AIMS RIC Doctoral Training School, Foundational Methods in Data Science <span class="tag live">Best Participant Award</span></h3>
       <div class="meta">March to April 2026 · AIMS Research and Innovation Centre, Kigali, Rwanda · four weeks, in person</div>
       <div class="facts"><span class="fund">Fully funded: travel, accommodation, registration and meals</span><span>Excellence Scholarship</span><span>Competitive international selection</span></div>
-      <p>Four weeks of doctoral training. The Best Participant Award was chosen by the other participants. On 20 March 2026 I presented my research on safety-first crop damage assessment.</p>
+      <p>Four weeks of doctoral training. The Best Participant Award was chosen by the other participants. On 20 March 2026 I gave a research presentation, "Safety-First Deep Learning for Crop Damage Assessment in Agricultural Insurance", an earlier stage of the CascadeCropNet paper.</p>
       <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Courses:</p><ul>
 <li>optimisation for data science, and machine learning essentials</li>
 <li>statistics and scientific methods, with R</li>
@@ -331,7 +335,8 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
 <li>Day 4: exponential smoothing, ARIMA models</li>
 <li>Day 5: training and test accuracy, residual diagnostics, cross-validation</li></ul>
 <p>A year later I returned to the same workshop as a mentor (see Teaching).</p></div></details></div></li>
-      <li><span class="when">Apr – Sep 2024</span><div><b>Africa TechUp Tour</b>, ISHEERO and 54Bridges. Intensive training in coding and AI, with more than 20 professional certifications and hands-on projects on OpenClassrooms.</div></li>
+      <li><span class="when">Apr – Sep 2024</span><div><b>Africa TechUp Tour</b>, ISHEERO and 54Bridges. Intensive training in coding and AI, with more than 20 professional certifications and hands-on projects on OpenClassrooms.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Included a computer vision course taught by Prof. Junior Segbedji Goubalan. Certifications covered Python, Git and GitHub, SQL and machine learning fundamentals.</p></div></details></div></li>
       <li><span class="when">2023 – 2024</span><div><b>Data Science Fundamentals with Python and SQL</b>, IBM (Coursera).
         <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Five courses: Tools for Data Science; Python for Data Science, AI and Development; Databases and SQL for Data Science with Python; Statistics for Data Science with Python; a Python project for data science.</p>
 <p>Also: Introduction to Risk Management, New York Institute of Finance, February to March 2024.</p></div></details></div></li>
@@ -345,10 +350,13 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
   <div class="wrap">
     <h2>Teaching</h2>
     <ul class="tl">
-      <li><span class="when">2023 – 2025</span><span><b>Teaching Assistant, Econometrics and Linear Algebra</b>, MSc Mathematics, Economics and Statistics, African School of Economics.</span></li>
+      <li><span class="when">2023 – 2025</span><div><b>Teaching Assistant, Econometrics and Linear Algebra</b>, MSc Mathematics, Economics and Statistics, African School of Economics.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Weekly sessions of 3 to 6 hours for 20 to 30 Master's students, on causal inference and applied econometrics. I also coordinated a reading group on policy evaluation methods.</p></div></details></div></li>
       <li><span class="when">Current</span><span><b>Mathematics teacher, Terminale classes</b>, Complexe Scolaire Sainte Bakhita.</span></li>
-      <li><span class="when">Oct 2019 – Dec 2024</span><span><b>Mathematics teacher and team coordinator</b>, Complexe Scolaire Pierre Joseph de Clorivière, Abomey-Calavi.</span></li>
-      <li><span class="when">2019 – now</span><span><b>Member, national baccalaureate mathematics grading committee</b>, Republic of Benin.</span></li>
+      <li><span class="when">Oct 2019 – Dec 2024</span><div><b>Mathematics teacher and team coordinator</b>, Complexe Scolaire Pierre Joseph de Clorivière, Abomey-Calavi.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Part-time. I coordinated all mathematics activities at the school. I also taught part-time at Complexe Scolaire Jean Michel Le Faucon, Abomey-Calavi (2018 to 2022), and have worked as a private mathematics tutor for senior high school and undergraduate students since 2016.</p></div></details></div></li>
+      <li><span class="when">2019 – now</span><div><b>Member, national baccalaureate mathematics grading committee</b>, Republic of Benin.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Official grader for the national baccalaureate mathematics examination, and member of the committee that sets grading and standardization.</p></div></details></div></li>
       <li><span class="when">Nov 2025</span><div><b>Mentor, time series forecasting in R</b>, AFRICAST workshop, Cardiff University and the International Institute of Forecasters.
         <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Selected as a mentor with the instructors Prof. Bahman Rostami-Tabar (Cardiff University) and Mitchell O'Hara-Wild (Monash University). I guided practical sessions on ARIMA, exponential smoothing, cross-validation and residual diagnostics for an international cohort.</p></div></details></div></li>
     </ul>
@@ -362,9 +370,16 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
       <li><span class="when">Apr 2026 – now</span><div><b>External collaborator, pretext-translate</b>, IDEMS International. Open-source pipeline that translates PreTeXt textbooks.
         <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><ul>
 <li>Audited two corpora and wrote the audit report.</li>
-<li>Found and fixed two high-severity extraction bugs.</li>
+<li>Found two extraction failures that left large parts of the text untranslated while the pipeline reported success. I traced their causes with controlled Tikal experiments and XLIFF inspection, and the fixes were validated on real corpus data.</li>
+<li>The pipeline uses the Okapi Framework (Tikal) to extract the XML, DeepL for machine translation and a translation memory (TMX) for consistent terminology.</li>
 <li>Classified all 315 PreTeXt schema elements and wrote a French onboarding guide.</li>
 </ul></div></details></div></li>
+      <li><span class="when">Feb – Mar 2025</span><div><b>Researcher, ASE alumni economic impact analysis</b>, African School of Economics.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Cleaned and analyzed an alumni dataset of more than 2,000 records across 12 cohorts in Stata, and produced salary distributions by cohort for institutional decisions.</p></div></details></div></li>
+      <li><span class="when">Oct 2024</span><div><b>BamKiribou, hackathon project</b>, International Forum on Living Environment.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Co-created an AI-assisted agroforestry concept combining bamboo and paulownia for climate-resilient land restoration.</p></div></details></div></li>
+      <li><span class="when">Mar – Apr 2024</span><div><b>Data analyst, virtual internship</b>, MeriSKILL. Completed with an A grade and a letter of recommendation.
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>A 45-day internship building end-to-end pipelines in Python, SQL, Power BI and Tableau. Projects: sales trend analysis for business decisions, and diagnostic prediction on patient health data.</p></div></details></div></li>
     </ul>
   </div>
 </section>
@@ -374,12 +389,23 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
     <h2>Education</h2>
     <ul class="tl">
       <li><span class="when">2022 – 2025</span><div><b>MSc Mathematics, Economics and Statistics</b>, African School of Economics (taught in English). GPA 3.61/4.3.
-        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Thesis, defended 25 September 2025: digital financial services and poverty reduction in Benin. A multivariate probit on Global Findex 2021 data, with interviews of 34 women in four communes. Supervisor: Segnon Aguey, PhD.</p></div></details></div></li>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Coursework October 2022 to 2024; thesis defended 25 September 2025, graded A. Supervisor: Segnon Aguey.</p>
+<p>Thesis: "Digital Financial Services and Poverty Reduction in Benin". A mixed-methods study: a probit analysis of nationally representative Global Findex 2021 data (n = 1,000) found a gender gap of 6.2 percentage points in formal saving after controlling for income and education. Fieldwork from January to September 2025 added semi-structured interviews and focus groups with 34 women in four communes (Abomey-Calavi, Cotonou, Zagnanado, Zè), with informed consent.</p>
+<p>Selected courses: Econometrics I (A-) and II (A), Macroeconomics I (A) and II (A-), Microeconomics I (A-) and II (A), Statistics (A).</p></div></details></div></li>
       <li><span class="when">2018 – Jan 2022</span><div><b>Master in Pure Mathematics and Applications</b>, Université d'Abomey-Calavi. Second Class Honours (Upper Division). CEA-SMIA Scholarship (World Bank), 2019 – 2021.
-        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Thesis, defended 22 January 2022, graded 15.5/20 (Very good): neural network regression in high dimension. An expository study of Bauer and Kohler (2019), with original numerical simulations.</p></div></details></div></li>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Thesis, defended 22 January 2022, graded 15.5/20 (Very good): "Neural Network Learning for Non-Parametric Regression in High Dimension". An expository study of Bauer and Kohler (2019), with original numerical simulations. Supervised by Prof. Carlos Ogounyandjou (IMSP-UAC) and Dr Freedath Djibril Moussa (FAST-UAC).</p>
+<p>First cohort of this Master's format; coursework extended into 2021 because of COVID-19. Selected courses: probability theory, functional analysis, stochastic modelling, PDE, pseudo-Riemannian geometry, optimization, numerical analysis, associative and universal algebra.</p></div></details></div></li>
       <li><span class="when">2014 – 2018</span><span><b>Licence in Mathematics</b>, Université d'Abomey-Calavi. Benin Government Scholarship (2016 – 2018).</span></li>
     </ul>
     <p class="muted small" style="margin-top:12px">Skills: Python, PyTorch, R, SQL, Stata, LaTeX, Git. Languages: French and Fon (native), English (professional).</p>
+    <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><ul>
+<li><b>Mathematics and statistics.</b> Probability theory, functional analysis, numerical optimization, PDE, stochastic modelling, linear algebra, Riemannian geometry, causal inference.</li>
+<li><b>Machine learning.</b> PyTorch, TensorFlow, cascade architectures, multi-task learning, focal loss, corruption-robust training, Bayesian and Deep Knowledge Tracing; chance-constrained optimization (in progress).</li>
+<li><b>Applied econometrics.</b> Multivariate probit, PCA-derived indices, time series forecasting (ARIMA, exponential smoothing), policy evaluation.</li>
+<li><b>Programming.</b> Python, R, Stata, MATLAB, C++, SQL, LaTeX, XML/XPath.</li>
+<li><b>Localization.</b> PreTeXt, Okapi Tikal, XLIFF and TMX, DeepL API.</li>
+<li><b>Data and visualization.</b> pandas, NumPy, Matplotlib, Power BI, Tableau.</li>
+</ul></div></details>
     <p class="muted small">Memberships: Econometric Society (student member, since 2024); ISHEERO, Initiative of Beninese AI Actors (since 2024); Association of Mathematics Teachers of Benin (since 2019).</p>
   </div>
 </section>
