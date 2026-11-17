@@ -260,9 +260,11 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--muted);f
       <article class="card">
         <h3>WIIRU Learn</h3>
         <div class="meta">Supervised by Dr Yaé Ulrich Gaba · working paper</div>
-        <p class="small">Adaptive revision for technical-track baccalaureate students in Benin, using Bayesian Knowledge Tracing to reduce the risk of an eliminating zero in mathematics. Not deployed.</p>
-        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Part of the Technipreneur Programme. Written for Terminale students on the technical and industrial tracks (F, E, EA, BTP, IMI, OG, DPB and others), where zero scores in mathematics are most frequent.</p>
-<p>Bayesian and Deep Knowledge Tracing estimate, skill by skill, what a student has mastered, updated after every answer. A retrieval-augmented generation pipeline produces practice questions grounded in the national curriculum. Revision is framed as a constrained sequential decision problem: keep the risk of an eliminating zero low. Status: working paper, not deployed.</p></div></details>
+        <p class="small">Adaptive mathematics tutor for Terminale F students (F1 to F4) in Benin's technical baccalaureate, where a zero in mathematics eliminates the candidate. Not deployed.</p>
+        <details class="more"><summary><span class="o">Read more</span><span class="c">Show less</span></summary><div class="body"><p>Part of the Technipreneur Programme. It follows the official Terminale F programme (F1 mechanical engineering, F2 electronics, F3 electrical engineering, F4 civil engineering). The first goal is to bring the risk of an eliminating zero close to none; the second is to raise the expected mark.</p>
+<p>A short adaptive placement test works down the prerequisite graph to find each student's gaps, including gaps from earlier years, and their cause: missing prerequisite, misconception, method or calculation. The platform then builds a personalised path in which each notion is learned through an explanation, worked examples, guided and independent exercises, an application from the student's trade, and a short mastery check.</p>
+<p>Knowledge tracing (a heuristic first, then Bayesian Knowledge Tracing) updates skill-level mastery after every answer. A retrieval-augmented generation pipeline drafts curriculum-aligned exercises, which are checked with SymPy and approved by a teacher before students see them. Research extensions: Deep Knowledge Tracing, and next-exercise selection framed as a constrained sequential decision problem that keeps the risk of an eliminating zero low.</p>
+<p>Status: specification and curriculum model written; not deployed.</p></div></details>
       </article>
     </div>
   </div>
